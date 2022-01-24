@@ -39,4 +39,18 @@ class EmployeeRepositoryImplTest {
         assertThat(result).contains(new Employee("1", 23000.00)).hasSize(1);
     }
 
+    @Test
+    void saveShouldUpdateAnExistingEmployeeId() {
+        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(List.of(
+                new Employee("1", 25000.0)
+        ));
+        employeeRepository.save(new Employee("1", 35000));
+
+        var result = employeeRepository.findAll();
+
+        assertThat(result)
+                .contains(new Employee("1", 35000.00))
+                .doesNotContain(new Employee("1", 25000.00));
+    }
+
 }

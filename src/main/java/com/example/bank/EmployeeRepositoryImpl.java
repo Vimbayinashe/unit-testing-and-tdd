@@ -24,6 +24,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee save(Employee e) {
+        Optional<Employee> existingEmployee = employees.stream()
+                .filter(employee -> employee.getId().equals(e.getId()))
+                .findAny();
+
+        existingEmployee.ifPresent(employees::remove);
         employees.add(e);
         return e;
     }
