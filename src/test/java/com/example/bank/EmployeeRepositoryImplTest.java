@@ -29,4 +29,14 @@ class EmployeeRepositoryImplTest {
         assertThat(result).hasSize(2);
     }
 
+    @Test
+    void saveShouldAddAnEmployeeToTheRepository() {
+        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+        employeeRepository.save(new Employee("1", 23000.00));
+
+        var result = employeeRepository.findAll();
+
+        assertThat(result).contains(new Employee("1", 23000.00)).hasSize(1);
+    }
+
 }

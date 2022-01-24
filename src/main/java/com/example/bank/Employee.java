@@ -1,5 +1,7 @@
 package com.example.bank;
 
+import java.util.Objects;
+
 public class Employee {
 
 	private String id;
@@ -40,4 +42,22 @@ public class Employee {
 		return "Employee [id=" + id + ", salary=" + salary + "]";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Employee employee)) return false;
+
+		if (Double.compare(employee.salary, salary) != 0) return false;
+		return Objects.equals(id, employee.id);
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = id != null ? id.hashCode() : 0;
+		temp = Double.doubleToLongBits(salary);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
 }
