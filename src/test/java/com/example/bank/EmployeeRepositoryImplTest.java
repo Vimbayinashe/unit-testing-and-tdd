@@ -2,6 +2,8 @@ package com.example.bank;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EmployeeRepositoryImplTest {
@@ -13,6 +15,18 @@ class EmployeeRepositoryImplTest {
         var result = employeeRepository.findAll();
 
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    void findAllShouldAllEmployees() {
+        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(List.of(
+                new Employee("200", 25750.00),
+                new Employee("201", 26500.00)
+        ));
+
+        var result = employeeRepository.findAll();
+
+        assertThat(result).hasSize(2);
     }
 
 }

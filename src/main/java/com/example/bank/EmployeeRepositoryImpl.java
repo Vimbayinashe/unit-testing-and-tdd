@@ -13,6 +13,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         employees = new ArrayList<>();
     }
 
+    public EmployeeRepositoryImpl(List<Employee> list) {
+        employees = new ArrayList<>(list);
+    }
+
     @Override
     public List<Employee> findAll() {
         return Collections.unmodifiableList(employees);
