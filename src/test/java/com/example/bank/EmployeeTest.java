@@ -1,5 +1,6 @@
 package com.example.bank;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,6 +24,11 @@ class EmployeeTest {
         var result = employee.toString();
 
         assertThat(result).contains("id=101").contains("salary=25000");
+    }
+
+    @Test
+    void verifyEqualsAndHashCode() {
+        EqualsVerifier.simple().forClass(Employee.class).verify();;
     }
 
 }

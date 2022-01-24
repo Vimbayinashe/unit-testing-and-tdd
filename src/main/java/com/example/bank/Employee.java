@@ -43,21 +43,23 @@ public class Employee {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public final boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof Employee employee)) return false;
 
 		if (Double.compare(employee.salary, salary) != 0) return false;
+		if (paid != employee.paid) return false;
 		return Objects.equals(id, employee.id);
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		int result;
 		long temp;
 		result = id != null ? id.hashCode() : 0;
 		temp = Double.doubleToLongBits(salary);
 		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + (paid ? 1 : 0);
 		return result;
 	}
 }
