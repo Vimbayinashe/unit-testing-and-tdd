@@ -28,7 +28,7 @@ class EmployeeTest {
 
     @Test
     void verifyEqualsAndHashCode() {
-        EqualsVerifier.simple().forClass(Employee.class).verify();;
+        EqualsVerifier.simple().forClass(Employee.class).verify();
     }
 
 }

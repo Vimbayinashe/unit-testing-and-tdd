@@ -47,7 +47,7 @@ class EmployeeManagerTest {
         employee2.setSalary(25_000.00);
 
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-        when(employeeRepository.findAll()).thenReturn(List.of( employee1, employee2));
+        when(employeeRepository.findAll()).thenReturn(List.of(employee1, employee2));
 
         BankService bankService = mock(BankService.class);
         doThrow(RuntimeException.class).when(bankService).pay(employee2.getId(), 250_000.00);
