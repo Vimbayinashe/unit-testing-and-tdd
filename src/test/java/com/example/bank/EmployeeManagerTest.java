@@ -12,12 +12,12 @@ class EmployeeManagerTest {
 
     @Test
     void payEmployeeShouldShouldPayAllEmployees() {
-        EmployeeRepository employeeRepositoryStub = new EmployeeRepositoryStub();
-        BankService bankServiceStub = new BankServiceStub();
-        EmployeeManager employeeManager = new EmployeeManager(employeeRepositoryStub, bankServiceStub);
+        EmployeeRepository employeeRepository = new EmployeeRepositoryStub();
+        BankService bankService = new BankServiceStub();
+        EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
 
         var result = employeeManager.payEmployees();
-        var expected = employeeRepositoryStub.findAll().size();
+        var expected = employeeRepository.findAll().size();
 
         assertThat(result).isEqualTo(expected);
     }
@@ -25,25 +25,23 @@ class EmployeeManagerTest {
     @Test
     void payEmployeesShouldOnlyPayValidEmployees() {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-        when(employeeRepository.findAll()).thenReturn(List.of(
-                new Employee("200", 25750.00),
-                new Employee("201", 26500.00)
-        ));
+        when(employeeRepository.findAll()).thenReturn(List.of(new Employee("1", 26500.00)));
+
         BankService bankService = mock(BankService.class);
-        doThrow(RuntimeException.class).when(bankService).pay("201", 26500.00);
+        doThrow(RuntimeException.class).when(bankService).pay("1", 26500.00);
 
         EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
 
 
         var result = employeeManager.payEmployees();
 
-        assertThat(result).isEqualTo(1);
+        assertThat(result).isZero();
     }
 
     @Test
     void payEmployeesShouldPayUpdatedSalaries() {
-        Employee employee1 = new Employee("201", 25_000.00);
-        Employee employee2 = new Employee("201", 250_000.00);
+        Employee employee1 = new Employee("1", 25_000.00);
+        Employee employee2 = new Employee("2", 250_000.00);
         employee2.setSalary(25_000.00);
 
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
@@ -58,6 +56,7 @@ class EmployeeManagerTest {
         var result = employeeManager.payEmployees();
 
         assertThat(result).isEqualTo(2);
+        assertTrue((employee1.isPaid()));
         assertTrue((employee2.isPaid()));
     }
 
