@@ -18,7 +18,7 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void findAllShouldAllEmployees() {
+    void findAllShouldReturnAllEmployees() {
         EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(List.of(
                 new Employee("200", 25750.00),
                 new Employee("201", 26500.00)
@@ -30,7 +30,7 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void saveShouldAddAnEmployeeToTheRepository() {
+    void saveShouldAddAnEmployee() {
         EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
         employeeRepository.save(new Employee("1", 23000.00));
 
@@ -40,7 +40,7 @@ class EmployeeRepositoryImplTest {
     }
 
     @Test
-    void saveShouldUpdateAnExistingEmployeeId() {
+    void saveShouldReplaceAnEmployeeWhenTheEmployeeIdAlreadyExists() {
         EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(List.of(
                 new Employee("1", 25000.0)
         ));
