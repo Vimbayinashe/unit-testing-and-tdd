@@ -16,4 +16,13 @@ class EmployeeTest {
         assertThat(id).isEqualTo("101");
     }
 
+    @Test
+    void toStringShouldContainEmployeeIdAndSalary() {
+        Employee employee = new Employee("101", 25000);
+
+        var result = employee.toString();
+
+        assertThat(result).contains("id=101").contains("salary=25000");
+    }
+
 }
